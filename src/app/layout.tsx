@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
+import SideBar from "@/components/layout/SideBar";
+import Trends from "@/components/layout/Trends";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" data-theme="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="flex min-h-screen w-full ">
+          <main className="flex-1">{children}</main>
+        </div>
       </body>
     </html>
   );
