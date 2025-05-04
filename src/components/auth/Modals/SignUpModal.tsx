@@ -1,28 +1,38 @@
 "use client";
-
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Modal from "react-modal";
 import { ModalProps } from "@/types";
-
+import { customStyles } from "@/constants/modelstyles";
+import { useState } from "react";
+import { signup } from "@/services/auth";
+import { SignUpFormData } from "@/types";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { authenticate } from "@/reducers/user";
 export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
-  const customStyles = {
-    overlay: {
-      backgroundColor: "transparent",
-    },
-    content: {
-      top: "45%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      width: "50vw",
-      height: "80vh",
-      backgroundColor: "var(--color-base-100)",
-    },
-  };
+  const dispatch = useAppDispatch();
+
+  const [userForm, setUserForm] = useState<SignUpFormData>({
+    firstname: "",
+    username: "",
+    password: "",
+  });
+
+  function updateUserData<K extends keyof SignUpFormData>(field: K, value: SignUpFormData[K]) {
+    setUserForm({ ...userForm, [field]: value });
+  }
+
+  async function handleSubmit() {
+    try {
+      const apiData = await signup(userForm);
+      if (apiData.result) {
+        dispatch(authenticate(apiData.user));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div>
@@ -39,8 +49,14 @@ export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
             <div className="font-bold text-3xl">Create your Hackatweet account</div>
           </div>
 
-          <div className="flex flex-col justiy-center items-center w-full gap-8">
-            <input type="text" placeholder="Firstname" className="input w-5/12" />
+          <div className="flex flex-col justiy-center items-center w-full gap-10">
+            <input
+              type="text"
+              placeholder="Firstname"
+              className="input w-5/12"
+              onChange={(e) => updateUserData("firstname", e.target.value)}
+              value={userForm.firstname}
+            />
             <input type="text" placeholder="Username" className="input w-5/12" />
             <input type="text" placeholder="Password" className="input w-5/12" />
             <button className="btn btn-primary  w-5/12">Sign up</button>

@@ -18,8 +18,8 @@ export default function SignInModal({ modalIsOpen, closeModal }: ModalProps) {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "50vw",
-      height: "80vh",
+      width: "60vw",
+      height: "85vh",
       backgroundColor: "var(--color-base-100)",
     },
   };
