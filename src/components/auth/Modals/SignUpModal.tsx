@@ -10,8 +10,14 @@ import { signup } from "@/services/auth";
 import { SignUpFormData } from "@/types";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { authenticate } from "@/reducers/user";
+import { redirect } from "next/navigation";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { useRouter } from "next/navigation";
+
 export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.value);
 
   const [userForm, setUserForm] = useState<SignUpFormData>({
     firstname: "",
@@ -28,6 +34,7 @@ export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
       const apiData = await signup(userForm);
       if (apiData.result) {
         dispatch(authenticate(apiData.user));
+        router.push("/");
       }
     } catch (err) {
       console.error(err);
@@ -57,9 +64,23 @@ export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
               onChange={(e) => updateUserData("firstname", e.target.value)}
               value={userForm.firstname}
             />
-            <input type="text" placeholder="Username" className="input w-5/12" />
-            <input type="text" placeholder="Password" className="input w-5/12" />
-            <button className="btn btn-primary  w-5/12">Sign up</button>
+            <input
+              type="text"
+              placeholder="Username"
+              className="input w-5/12"
+              onChange={(e) => updateUserData("username", e.target.value)}
+              value={userForm.username}
+            />
+            <input
+              type="text"
+              placeholder="Password"
+              className="input w-5/12"
+              onChange={(e) => updateUserData("password", e.target.value)}
+              value={userForm.password}
+            />
+            <button className="btn btn-primary  w-5/12" onClick={handleSubmit}>
+              Sign up
+            </button>
           </div>
         </div>
       </Modal>

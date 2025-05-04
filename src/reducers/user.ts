@@ -9,9 +9,10 @@ const userState = createSlice({
   name: "user",
   initialState,
   reducers: {
-    authenticate: (state: UserState, action: PayloadAction<{ username: string; token: string }>) => {
+    authenticate: (state: UserState, action: PayloadAction<{ username: string; token: string; firstname: string }>) => {
       state.value.username = action.payload.username;
       state.value.token = action.payload.token;
+      state.value.firstname = action.payload.firstname;
     },
     logOut: (state: UserState) => {
       state.value.username = "";

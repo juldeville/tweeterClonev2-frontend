@@ -1,5 +1,4 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, lofi, cyberpunk, dracula, winter, caramellatte,
-    pastel, cupcake;
+  themes: light --default, dark --prefersdark, lofi, cyberpunk, dracula, winter, caramellatte, pastel, cupcake;
 }
