@@ -10,7 +10,6 @@ import { signup } from "@/services/auth";
 import { SignUpFormData } from "@/types";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { authenticate } from "@/reducers/user";
-import { redirect } from "next/navigation";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useRouter } from "next/navigation";
 
@@ -72,7 +71,7 @@ export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
               value={userForm.username}
             />
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               className="input w-5/12"
               onChange={(e) => updateUserData("password", e.target.value)}

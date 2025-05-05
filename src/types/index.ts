@@ -6,9 +6,9 @@ export interface ModalProps {
 
 export interface UserState {
   value: {
-    username: null | string;
-    token: null | string;
-    firstname: null | string;
+    username: string;
+    token: string;
+    firstname: string;
   };
 }
 
@@ -16,4 +16,23 @@ export interface SignUpFormData {
   firstname: string;
   username: string;
   password: string;
+}
+
+export interface SignInFormData {
+  username: string;
+  password: string;
+}
+
+export interface CreateTweetData {
+  token: string;
+  content: string;
+  tag?: string;
+}
+
+export interface TweetData {
+  user: { firstname: string; username: string };
+  content: string;
+  date: string;
+  likes: Array<string>;
+  tag?: string;
 }
