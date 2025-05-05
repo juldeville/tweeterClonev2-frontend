@@ -2,13 +2,17 @@ import React from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-
+import { updateLike } from "@/services/tweets";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { useState } from "react";
 interface TweetCardProps {
   firstname: string;
   username: string;
   createdAt: string;
   content: string;
   likeCount: number;
+  id: string;
+  toggleRefresh: () => void;
 }
 
 export default function TweetCard({
@@ -17,7 +21,16 @@ export default function TweetCard({
   createdAt,
   content,
   likeCount,
+  id,
+  toggleRefresh,
 }: TweetCardProps) {
+  const user = useAppSelector((state) => state.user.value);
+
+  const handleUpdateLike = async () => {
+    await updateLike({ token: user.token, tweetId: id });
+    toggleRefresh();
+  };
+
   return (
     <div className="flex flex-col gap-3 p-6 border-b border-base-content">
       <div className="flex gap-4 items-center">
@@ -36,7 +49,7 @@ export default function TweetCard({
           <div>{content}</div>
         </div>
         <div className="flex gap-4 items-center">
-          <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon icon={faHeart} onClick={handleUpdateLike} />
           <span>{likeCount}</span>
         </div>
       </div>

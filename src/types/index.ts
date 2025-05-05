@@ -35,4 +35,10 @@ export interface TweetData {
   date: string;
   likes: Array<string>;
   tag?: string;
+  _id: string;
+}
+
+export interface UpdateTweetData {
+  token: string;
+  tweetId: string;
 }

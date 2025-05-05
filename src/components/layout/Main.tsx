@@ -31,6 +31,8 @@ export default function Main() {
         createdAt={getTimeAgo(tweet.date)}
         likeCount={likeCount}
         content={tweet.content}
+        id={tweet._id}
+        toggleRefresh={toggleRefresh}
       />
     );
   });

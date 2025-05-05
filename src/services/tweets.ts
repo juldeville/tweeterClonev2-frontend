@@ -1,5 +1,5 @@
 import { apiUrl } from "@/constants/modelstyles";
-import { CreateTweetData } from "@/types";
+import { CreateTweetData, UpdateTweetData } from "@/types";
 
 async function createTweet(data: CreateTweetData) {
   try {
@@ -32,9 +32,21 @@ async function getTweets() {
   }
 }
 
-async function updateLike() {
+async function updateLike(data: UpdateTweetData) {
   try {
-  } catch (error) {}
+    const response = await fetch(`${apiUrl}/tweets/updateLike`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const apiData = await response.json();
+
+    if (apiData.result) return apiData;
+    throw new Error("updateLike failed");
+  } catch (error) {
+    console.error("error is: ", error);
+    throw error;
+  }
 }
 
-export { createTweet, getTweets };
+export { createTweet, getTweets, updateLike };
