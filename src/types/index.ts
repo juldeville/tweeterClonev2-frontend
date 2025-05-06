@@ -36,6 +36,7 @@ export interface TweetData {
   likes: Array<string>;
   tag?: string;
   _id: string;
+  isLiked: boolean;
 }
 
 export interface UpdateTweetData {

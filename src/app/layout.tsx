@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="lofi">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <StoreProvider>
           <div className="flex min-h-screen w-full ">
@@ -38,3 +38,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+// lofi, cyberpunk, dracula, winter, caramellatte, pastel, cupcake;

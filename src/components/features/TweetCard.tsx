@@ -13,6 +13,7 @@ interface TweetCardProps {
   likeCount: number;
   id: string;
   toggleRefresh: () => void;
+  isLiked: boolean;
 }
 
 export default function TweetCard({
@@ -23,6 +24,7 @@ export default function TweetCard({
   likeCount,
   id,
   toggleRefresh,
+  isLiked,
 }: TweetCardProps) {
   const user = useAppSelector((state) => state.user.value);
 
@@ -49,7 +51,12 @@ export default function TweetCard({
           <div>{content}</div>
         </div>
         <div className="flex gap-4 items-center">
-          <FontAwesomeIcon icon={faHeart} onClick={handleUpdateLike} />
+          <FontAwesomeIcon
+            icon={faHeart}
+            onClick={handleUpdateLike}
+            color={isLiked ? "#e64a19" : "#fffff"}
+            className="cursor-pointer"
+          />
           <span>{likeCount}</span>
         </div>
       </div>
