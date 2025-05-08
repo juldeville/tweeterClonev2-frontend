@@ -42,7 +42,7 @@ export default function Main() {
   });
 
   return (
-    <div className=" min-h-screen border-x border-base-content ">
+    <div className=" min-h-screen border-x border-base-content flex-1">
       <TweetComposer toggleRefresh={toggleRefresh} />
       {tweets}
     </div>

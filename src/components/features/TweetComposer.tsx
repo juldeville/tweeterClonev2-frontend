@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { createTweet } from "@/services/tweets";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import { extractTag } from "@/utils/extractTag";
 interface TweetComposerProps {
   toggleRefresh: () => void;
 }
@@ -10,7 +11,8 @@ export default function TweetComposer({ toggleRefresh }: TweetComposerProps) {
   const [textArea, setTextArea] = useState<string>("");
 
   const handleSubmit = async () => {
-    await createTweet({ token: user.token, content: textArea });
+    const tag = extractTag(textArea);
+    await createTweet({ token: user.token, content: textArea, ...(tag && { tag }) });
     toggleRefresh();
   };
   const user = useAppSelector((state) => state.user.value);

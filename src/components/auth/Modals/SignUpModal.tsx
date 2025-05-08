@@ -10,13 +10,11 @@ import { signup } from "@/services/auth";
 import { SignUpFormData } from "@/types";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { authenticate } from "@/reducers/user";
-import { useAppSelector } from "@/hooks/reduxHooks";
 import { useRouter } from "next/navigation";
 
 export default function SignUpModal({ modalIsOpen, closeModal }: ModalProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.value);
 
   const [userForm, setUserForm] = useState<SignUpFormData>({
     firstname: "",

@@ -21,7 +21,6 @@ async function getTweets(token: string) {
   try {
     const response = await fetch(`${apiUrl}/tweets/getTweets/${token}`);
     const data = await response.json();
-    console.log("data is", data);
     if (data.result) {
       return data;
     } else {
