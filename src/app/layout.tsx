@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="lofi">
+    <html lang="en" data-theme="winter">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <StoreProvider>
           <div className="flex min-h-screen w-full ">

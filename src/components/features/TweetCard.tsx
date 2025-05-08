@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { updateLike } from "@/services/tweets";
 import { useAppSelector } from "@/hooks/reduxHooks";
-import { useState } from "react";
+import { extractTag } from "@/utils/extractTag";
+import { formatTag } from "@/utils/formatTag";
 interface TweetCardProps {
   firstname: string;
   username: string;
@@ -28,6 +29,8 @@ export default function TweetCard({
 }: TweetCardProps) {
   const user = useAppSelector((state) => state.user.value);
 
+  const formattedContent = formatTag(content);
+
   const handleUpdateLike = async () => {
     await updateLike({ token: user.token, tweetId: id });
     toggleRefresh();
@@ -47,9 +50,7 @@ export default function TweetCard({
       </div>
 
       <div className="flex flex-col items-start gap-4">
-        <div className="">
-          <div>{content}</div>
-        </div>
+        <div className="text-lg">{formattedContent}</div>
         <div className="flex gap-4 items-center">
           <FontAwesomeIcon
             icon={faHeart}
@@ -57,6 +58,7 @@ export default function TweetCard({
             color={isLiked ? "#e64a19" : "#fffff"}
             className="cursor-pointer"
           />
+
           <span>{likeCount}</span>
         </div>
       </div>

@@ -1,6 +1,4 @@
 "use client";
-
-import Image from "next/image";
 import Main from "@/components/layout/Main";
 import SideBar from "@/components/layout/SideBar";
 import Trends from "@/components/layout/Trends";
