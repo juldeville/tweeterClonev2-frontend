@@ -24,6 +24,7 @@ export default function Main() {
   }, [refresh]);
 
   const tweets = tweetData?.map((tweet, i) => {
+    const author = tweet.user.username === user.username;
     const isLiked = tweet.isLiked;
     const likeCount = tweet.likes.length;
     return (
@@ -37,6 +38,7 @@ export default function Main() {
         id={tweet._id}
         toggleRefresh={toggleRefresh}
         isLiked={isLiked}
+        author={author}
       />
     );
   });

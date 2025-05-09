@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { updateLike } from "@/services/tweets";
+import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { updateLike, deleteTweet } from "@/services/tweets";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { extractTag } from "@/utils/extractTag";
 import { formatTag } from "@/utils/formatTag";
@@ -15,6 +15,7 @@ interface TweetCardProps {
   id: string;
   toggleRefresh: () => void;
   isLiked: boolean;
+  author: boolean;
 }
 
 export default function TweetCard({
@@ -26,13 +27,17 @@ export default function TweetCard({
   id,
   toggleRefresh,
   isLiked,
+  author,
 }: TweetCardProps) {
   const user = useAppSelector((state) => state.user.value);
 
   const formattedContent = formatTag(content);
-
   const handleUpdateLike = async () => {
     await updateLike({ token: user.token, tweetId: id });
+    toggleRefresh();
+  };
+  const handleDelete = async () => {
+    await deleteTweet(id);
     toggleRefresh();
   };
 
@@ -58,8 +63,16 @@ export default function TweetCard({
             color={isLiked ? "#e64a19" : "#fffff"}
             className="cursor-pointer"
           />
-
           <span>{likeCount}</span>
+          {author && (
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              onClick={() => {
+                handleDelete();
+              }}
+              className="cursor-pointer"
+            />
+          )}
         </div>
       </div>
     </div>

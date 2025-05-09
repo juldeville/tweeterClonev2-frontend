@@ -43,3 +43,8 @@ export interface UpdateTweetData {
   token: string;
   tweetId: string;
 }
+
+export interface TagData {
+  tag: string;
+  tweets: any[];
+}

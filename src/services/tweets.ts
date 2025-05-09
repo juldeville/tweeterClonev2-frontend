@@ -9,6 +9,7 @@ async function createTweet(data: CreateTweetData) {
       body: JSON.stringify(data),
     });
     const tweetData = await response.json();
+
     if (tweetData.result) {
       return tweetData;
     } else {
@@ -49,4 +50,21 @@ async function updateLike(data: UpdateTweetData) {
   }
 }
 
-export { createTweet, getTweets, updateLike };
+async function deleteTweet(data: string) {
+  try {
+    const response = await fetch(`${apiUrl}/tweets/deleteTweet`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ tweetId: data }),
+    });
+
+    const apiData = await response.json();
+    if (apiData.result) return true;
+    throw new Error("delete tweet failed");
+  } catch (err) {
+    console.error("error is", err);
+    throw err;
+  }
+}
+
+export { createTweet, getTweets, updateLike, deleteTweet };
