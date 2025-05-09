@@ -4,9 +4,9 @@ import SideBar from "@/components/layout/SideBar";
 import Trends from "@/components/layout/Trends";
 export default function Home() {
   return (
-    <div className="flex min-h-screen w-full justify-between">
+    <div className="flex  w-full justify-between">
       <SideBar />
-      <Main />;
+      <Main />
       <Trends />
     </div>
   );

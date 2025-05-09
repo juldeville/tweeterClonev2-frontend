@@ -23,6 +23,12 @@ export interface SignInFormData {
   password: string;
 }
 
+export interface FieldErrors {
+  firstname: boolean;
+  username: boolean;
+  password: boolean;
+}
+
 export interface CreateTweetData {
   token: string;
   content: string;

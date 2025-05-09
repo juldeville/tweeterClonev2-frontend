@@ -19,17 +19,21 @@ export default function SignInModal({ modalIsOpen, closeModal }: ModalProps) {
     username: "",
     password: "",
   });
+  const [authError, setAuthError] = useState(false);
   function updateUserData<K extends keyof SignInFormData>(field: K, value: SignInFormData[K]) {
     setUserForm({ ...userForm, [field]: value });
+    setAuthError(false);
   }
   async function handleSubmit() {
     try {
       const apiData = await signin(userForm);
       if (apiData.result) {
         dispatch(authenticate(apiData.user));
+        setAuthError(false);
         router.push("/");
       } else {
         console.log("auth failed, apiData: ", apiData);
+        setAuthError(true);
       }
     } catch (err) {
       console.error(err);
@@ -65,9 +69,11 @@ export default function SignInModal({ modalIsOpen, closeModal }: ModalProps) {
               onChange={(e) => updateUserData("password", e.target.value)}
               value={userForm.password}
             />
+
             <button className="btn btn-primary  w-5/12" onClick={() => handleSubmit()}>
               Sign in
             </button>
+            {authError && <div className="text-error ">Incorrect username or password, please try again.</div>}
           </div>
         </div>
       </Modal>
