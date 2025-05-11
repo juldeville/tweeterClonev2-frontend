@@ -11,7 +11,7 @@ import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 export default function Main() {
   const [tweetData, setTweetData] = useState<TweetData[]>([]);
   const user = useAppSelector((state) => state.user.value);
-  const reload = useAppSelector((state) => state.tags);
+  const reload = useAppSelector((state) => state.reload);
 
   useEffect(() => {
     (async () => {

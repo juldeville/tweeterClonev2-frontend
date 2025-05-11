@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
-import tags from "../reducers/tags";
+import reload from "../reducers/reload";
+import theme from "../reducers/theme";
 export const makeStore = () => {
   return configureStore({
-    reducer: { user, tags },
+    reducer: { user, reload, theme },
   });
 };
 

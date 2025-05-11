@@ -4,15 +4,18 @@ import { useState } from "react";
 import { createTweet } from "@/services/tweets";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { extractTag } from "@/utils/extractTag";
-import { refreshTags } from "@/reducers/tags";
+import { refreshTags } from "@/reducers/reload";
 
 export default function TweetComposer() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.value);
-
+  const boolean = useAppSelector((state) => state.reload);
+  console.log("boolean is", boolean);
   const [textArea, setTextArea] = useState<string>("");
 
   const handleSubmit = async () => {
+    console.log("yo");
+
     const tag = extractTag(textArea);
     await createTweet({ token: user.token, content: textArea, ...(tag && { tag }) });
     dispatch(refreshTags());

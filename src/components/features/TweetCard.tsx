@@ -5,7 +5,7 @@ import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { updateLike, deleteTweet } from "@/services/tweets";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { formatTag } from "@/utils/formatTag";
-import { refreshTags } from "@/reducers/tags";
+import { refreshTags } from "@/reducers/reload";
 
 interface TweetCardProps {
   firstname: string;
@@ -39,6 +39,7 @@ export default function TweetCard({
   };
 
   const handleDelete = async () => {
+    console.log("id is", id);
     await deleteTweet(id);
     dispatch(refreshTags());
   };

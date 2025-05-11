@@ -5,7 +5,7 @@ import { getTags } from "@/services/tags";
 import { TagData } from "@/types";
 import { useAppSelector } from "@/hooks/reduxHooks";
 export default function Trends() {
-  const reload = useAppSelector((state) => state.tags);
+  const reload = useAppSelector((state) => state.reload);
   const [tagData, setTagData] = useState<TagData[]>([]);
   useEffect(() => {
     (async () => {
