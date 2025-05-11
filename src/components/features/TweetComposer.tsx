@@ -2,20 +2,22 @@
 import React from "react";
 import { useState } from "react";
 import { createTweet } from "@/services/tweets";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { extractTag } from "@/utils/extractTag";
-interface TweetComposerProps {
-  toggleRefresh: () => void;
-}
-export default function TweetComposer({ toggleRefresh }: TweetComposerProps) {
+import { refreshTags } from "@/reducers/tags";
+
+export default function TweetComposer() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.value);
+
   const [textArea, setTextArea] = useState<string>("");
 
   const handleSubmit = async () => {
     const tag = extractTag(textArea);
     await createTweet({ token: user.token, content: textArea, ...(tag && { tag }) });
-    toggleRefresh();
+    dispatch(refreshTags());
   };
-  const user = useAppSelector((state) => state.user.value);
+
   return (
     <div className="w-full flex justify-center  py-4 flex-col  border-b border-base-content">
       <h1 className="ml-15 font-bold text-2xl">Home</h1>

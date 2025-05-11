@@ -3,9 +3,10 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { updateLike, deleteTweet } from "@/services/tweets";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { extractTag } from "@/utils/extractTag";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { formatTag } from "@/utils/formatTag";
+import { refreshTags } from "@/reducers/tags";
+
 interface TweetCardProps {
   firstname: string;
   username: string;
@@ -13,7 +14,6 @@ interface TweetCardProps {
   content: string;
   likeCount: number;
   id: string;
-  toggleRefresh: () => void;
   isLiked: boolean;
   author: boolean;
 }
@@ -25,20 +25,22 @@ export default function TweetCard({
   content,
   likeCount,
   id,
-  toggleRefresh,
   isLiked,
   author,
 }: TweetCardProps) {
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.value);
 
   const formattedContent = formatTag(content);
+
   const handleUpdateLike = async () => {
     await updateLike({ token: user.token, tweetId: id });
-    toggleRefresh();
+    dispatch(refreshTags());
   };
+
   const handleDelete = async () => {
     await deleteTweet(id);
-    toggleRefresh();
+    dispatch(refreshTags());
   };
 
   return (
@@ -49,8 +51,8 @@ export default function TweetCard({
         </div>
         <div className="flex gap-4">
           <div className="font-bold">{firstname}</div>
-          <div className="text-secondary-content">@{username}</div>
-          <div className="text-secondary-content">- {createdAt}</div>
+          <div className="text-secondary">@{username}</div>
+          <div className="text-secondary">- {createdAt}</div>
         </div>
       </div>
 

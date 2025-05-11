@@ -1,4 +1,12 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, lofi, cyberpunk, dracula, winter, caramellatte, pastel, cupcake;
+  themes: light --default, dark --prefersdark, lofi, cyberpunk, dracula, winter, caramellatte, pastel, cupcake, nord,
+    dim, business;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
 }

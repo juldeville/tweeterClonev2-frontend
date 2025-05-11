@@ -17,7 +17,7 @@ export default function SideBar() {
     </div>
   );
   return (
-    <div className="w-1/5 flex flex-col py-10 justify-between items-start px-6">
+    <div className=" flex flex-col py-10 justify-between items-start px-6 h-full">
       <FontAwesomeIcon icon={faTwitter} className="text-8xl rotate-180 px-4" />
       <div className=" flex gap-4 px-6 py-2 rounded-2xl items-center  transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-101 hover:bg-info-content">
         <div className="inline rounded-full overflow-hidden relative w-13 h-12">

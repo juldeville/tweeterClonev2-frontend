@@ -54,3 +54,7 @@ export interface TagData {
   tag: string;
   tweets: any[];
 }
+
+export interface TagDataState {
+  value: TagData[];
+}

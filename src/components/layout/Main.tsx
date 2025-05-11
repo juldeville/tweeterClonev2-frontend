@@ -6,14 +6,13 @@ import { useState } from "react";
 import { TweetData } from "@/types";
 import { getTweets } from "@/services/tweets";
 import { getTimeAgo } from "@/utils/getTimeAgo";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+
 export default function Main() {
   const [tweetData, setTweetData] = useState<TweetData[]>([]);
-  const [refresh, setRefresh] = useState<boolean>(false);
   const user = useAppSelector((state) => state.user.value);
-  function toggleRefresh() {
-    setRefresh(!refresh);
-  }
+  const reload = useAppSelector((state) => state.tags);
+
   useEffect(() => {
     (async () => {
       const data = await getTweets(user.token);
@@ -21,7 +20,7 @@ export default function Main() {
         setTweetData(data.formattedTweets);
       }
     })();
-  }, [refresh]);
+  }, [reload]);
 
   const tweets = tweetData?.map((tweet, i) => {
     const author = tweet.user.username === user.username;
@@ -36,7 +35,6 @@ export default function Main() {
         likeCount={likeCount}
         content={tweet.content}
         id={tweet._id}
-        toggleRefresh={toggleRefresh}
         isLiked={isLiked}
         author={author}
       />
@@ -44,8 +42,8 @@ export default function Main() {
   });
 
   return (
-    <div className=" min-h-screen border-x border-base-content flex-1">
-      <TweetComposer toggleRefresh={toggleRefresh} />
+    <div>
+      <TweetComposer />
       {tweets}
     </div>
   );

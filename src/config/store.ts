@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
+import tags from "../reducers/tags";
 export const makeStore = () => {
   return configureStore({
-    reducer: { user },
+    reducer: { user, tags },
   });
 };
 
