@@ -18,10 +18,14 @@ async function createTweet(data: CreateTweetData) {
   } catch (error) {}
 }
 
-async function getTweets(token: string) {
+async function getTweets(token: string, query: string = "") {
   try {
-    const response = await fetch(`${apiUrl}/tweets/getTweets/${token}`);
+    const url = query
+      ? `${apiUrl}/tweets/getTweets/${token}?tagId=${encodeURIComponent(query)}`
+      : `${apiUrl}/tweets/getTweets/${token}`;
+    const response = await fetch(url);
     const data = await response.json();
+
     if (data.result) {
       return data;
     } else {

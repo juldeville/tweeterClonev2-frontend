@@ -9,15 +9,13 @@ import { refreshTags } from "@/reducers/reload";
 export default function TweetComposer() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.value);
-  const boolean = useAppSelector((state) => state.reload);
-  console.log("boolean is", boolean);
+
   const [textArea, setTextArea] = useState<string>("");
 
   const handleSubmit = async () => {
-    console.log("yo");
-
     const tag = extractTag(textArea);
     await createTweet({ token: user.token, content: textArea, ...(tag && { tag }) });
+    setTextArea("");
     dispatch(refreshTags());
   };
 

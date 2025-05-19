@@ -1,24 +1,22 @@
 "use client";
 import React, { useEffect } from "react";
 import TweetCard from "../features/TweetCard";
-import TweetComposer from "../features/TweetComposer";
+import SearchBar from "../features/SearchBar";
 import { useState } from "react";
 import { TweetData } from "@/types";
 import { getTweets } from "@/services/tweets";
 import { getTimeAgo } from "@/utils/getTimeAgo";
 import { useAppSelector } from "@/hooks/reduxHooks";
 
-export default function Main() {
+export default function HashtagView({ tagId }: { tagId: string }) {
   const [tweetData, setTweetData] = useState<TweetData[]>([]);
   const user = useAppSelector((state) => state.user.value);
   const reload = useAppSelector((state) => state.reload);
 
   useEffect(() => {
     (async () => {
-      const data = await getTweets(user.token);
-      if (data.result) {
-        setTweetData(data.formattedTweets);
-      }
+      const data = await getTweets(user.token, tagId);
+      setTweetData(data.formattedTweets);
     })();
   }, [reload]);
 
@@ -43,7 +41,7 @@ export default function Main() {
 
   return (
     <div>
-      <TweetComposer />
+      <SearchBar />
       {tweets}
     </div>
   );

@@ -39,7 +39,6 @@ export default function TweetCard({
   };
 
   const handleDelete = async () => {
-    console.log("id is", id);
     await deleteTweet(id);
     dispatch(refreshTags());
   };

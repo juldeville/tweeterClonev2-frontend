@@ -15,7 +15,7 @@ export default function Trends() {
   }, [reload]);
 
   const tags = tagData.map((data, index) => {
-    return <TrendCard tag={data.tag} tweets={data.tweets} key={index} />;
+    return <TrendCard tag={data.tag} tweets={data.tweets} key={index} _id={data._id} />;
   });
   return (
     <div className=" h-screen sticky top-0 w-full py-4 px-15 flex flex-col gap-4 ">

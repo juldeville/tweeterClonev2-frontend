@@ -7,10 +7,7 @@ type Props = {
 };
 
 export default function ThemeCard({ theme }: Props) {
-  const currentTheme = useAppSelector((state) => state.theme.value);
-  console.log("crruent theme is", currentTheme);
   const dispatch = useAppDispatch();
-
   return (
     <div
       onClick={() => dispatch(changeTheme(theme))}

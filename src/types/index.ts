@@ -53,6 +53,7 @@ export interface UpdateTweetData {
 export interface TagData {
   tag: string;
   tweets: any[];
+  _id: string;
 }
 
 export interface TagDataState {
